@@ -6,7 +6,7 @@ export const Ping: Command = {
         .setName("ping")
         .setDescription("Replies with pong!"),
 
-    async execute(interaction: ChatInputCommandInteraction) {
+    async execute(interaction: ChatInputCommandInteraction): Promise<void> {
         await interaction.reply({
             content: `Pong!`,
             flags: MessageFlags.Ephemeral
