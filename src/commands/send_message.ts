@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, ChannelType, TextBasedChannel, Role, EmbedBuilder, MessageFlags } from "discord.js"
 import { Command, Color } from "./../utils/config"
+import fs from "fs"
 
 export const SendMessage: Command = {
     data: new SlashCommandBuilder()
@@ -51,11 +52,14 @@ export const SendMessage: Command = {
 
         try {
             const message = await channel.send({ embeds: [embed] })
-            await interaction.reply({ content: "Message sent", flags: MessageFlags.Ephemeral })
-
+            
             emojis.forEach(async (value: string) => {
                 await message.react(value)
             })
+
+            fs.writeFileSync("message.txt", message.id, "utf-8")
+
+            await interaction.reply({ content: "Message sent", flags: MessageFlags.Ephemeral })
             return
         } catch {
             interaction.reply({ content: "I cannot send a message in that channel", flags: MessageFlags.Ephemeral })

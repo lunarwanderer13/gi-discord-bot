@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from "discord.js"
+import { Client, GatewayIntentBits, Partials } from "discord.js"
 import { Command } from "./utils/config"
 import "dotenv/config"
 
@@ -9,15 +9,23 @@ import { SendMessage } from "./commands/send_message"
 // Import events
 import clientReady from "./events/clientReady"
 import interactionCreate from "./events/interactionCreate"
+import messageReaction from "./events/messageReaction"
 
 export const client: Client<boolean> = new Client({
     intents: [
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildExpressions,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.Guilds
+    ],
+    partials: [
+        Partials.Message,
+        Partials.Channel,
+        Partials.Reaction,
+        Partials.User
     ]
 })
 
@@ -28,6 +36,7 @@ export const Commands: Command[] = [
 
 clientReady(client)
 interactionCreate(client)
+messageReaction(client)
 
 // Login with the bot
 client.login(process.env.TOKEN)
