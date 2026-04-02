@@ -1,4 +1,5 @@
-import { Client, GatewayIntentBits, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, ChatInputCommandInteraction } from "discord.js"
+import { Client, GatewayIntentBits } from "discord.js"
+import { Command } from "./utils/config"
 import "dotenv/config"
 
 // Import commands
@@ -18,11 +19,6 @@ export const client: Client<boolean> = new Client({
         GatewayIntentBits.Guilds
     ]
 })
-
-export interface Command {
-    data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder
-    execute: (interaction: ChatInputCommandInteraction) => Promise<void>
-}
 
 export const Commands: Command[] = [
     Ping
