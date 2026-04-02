@@ -14,7 +14,3 @@ export const Color: {primary: ColorResolvable, accent: ColorResolvable} = {
     accent: "#ffaaaa"
 }
 
-export type Emoji = {
-    id: string,
-    name: string
-}
