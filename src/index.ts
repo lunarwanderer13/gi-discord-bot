@@ -4,6 +4,7 @@ import "dotenv/config"
 
 // Import commands
 import { Ping } from "./commands/ping"
+import { SendMessage } from "./commands/send_message"
 
 // Import events
 import clientReady from "./events/clientReady"
@@ -21,7 +22,8 @@ export const client: Client<boolean> = new Client({
 })
 
 export const Commands: Command[] = [
-    Ping
+    Ping,
+    SendMessage
 ]
 
 clientReady(client)
