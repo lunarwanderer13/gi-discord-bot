@@ -27,7 +27,7 @@ export const SendMessage: Command = {
             .setColor(Color.primary)
             .setTitle("Self-role serwera GI")
 
-        let description: string = "Dodaj reakcję aby otrzymać rolę:"
+        let description: string = "Dodaj reakcję aby otrzymać rolę:\n"
         const roles: (Role | null)[] = [
             await interaction.guild.roles.fetch("1489217501207199894"), // @powiadomienia-aktualnosci-gi
             await interaction.guild.roles.fetch("1489217766463504555"), // @powiadomienia-mypolitics
@@ -35,12 +35,12 @@ export const SendMessage: Command = {
             await interaction.guild.roles.fetch("1489217846415458366"), // @powiadomienia-dzialaj-org
             await interaction.guild.roles.fetch("1489217877453045901")  // @powiadomienia-ngo-manager
         ]
-        const emojis: string[] = [ // these emojis are temporary, used as placeholders
-            "<:gi:1335711671867670589>",
-            "<:gigachad:1345561062531010673>",
-            "<:oki:1417265343071780894>",
-            "<:XD:1377392119836311552>",
-            "<:prezescloseup:1417829621256294512>"
+        const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
+            "<:one:>",
+            "<:two:>",
+            "<:three:>",
+            "<:four:>",
+            "<:five:>"
         ]
 
         roles.forEach((value: Role | null, index: number) => {
