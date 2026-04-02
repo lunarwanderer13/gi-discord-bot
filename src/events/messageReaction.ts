@@ -1,4 +1,5 @@
-import { Client, User, PartialUser, MessageReaction, PartialMessageReaction } from "discord.js"
+import { Client, User, PartialUser, Member, MessageReaction, PartialMessageReaction, Role } from "discord.js"
+import { fetchRoles } from "src/utils/config"
 import fs from "fs"
 
 export default (client: Client): void => {
@@ -7,6 +8,7 @@ export default (client: Client): void => {
         if (reaction.partial || !reaction) reaction = await reaction.fetch()
         if (reaction.message.partial || !reaction.message) reaction.message = await reaction.message.fetch()
         if (user.partial || !user) user = await user.fetch()
+        if (!reaction.message.guild) return
 
         // Check for bot reaction
         if (user.id === process.env.CLIENT_ID!) return
@@ -15,6 +17,38 @@ export default (client: Client): void => {
         const self_role_message_id: string = fs.readFileSync("message.txt", "utf-8")
         if (reaction.message.id != self_role_message_id) return
 
-        console.log("reacted")
+        const roles: (Role | null)[] = await fetchRoles(reaction.message.guild)
+
+        let role: Role | null = roles[0]
+        switch (reaction.emoji.name) {
+            case "gi":
+                role = roles[0]
+                break
+            case "mypolitics":
+                role = roles[1]
+                break
+            case "piatka":
+                role = roles[2]
+                break
+            case "dzialajorg":
+                role = roles[3]
+                break
+            case "merged":
+                role = roles[4]
+                break
+        }
+        if (!role) return
+
+        const member: Member = await reaction.message.guild.members.fetch(user.id)
+        if (!member) return        
+
+        if (member.roles.cache.has(role.id)) {
+            member.roles.remove(role.id)
+        } else {
+            member.roles.add(role.id)
+        }
+
+        // Remove reaction right after reacting
+        reaction.users.remove(member.id)
     })
 }

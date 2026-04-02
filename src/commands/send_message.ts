@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, ChannelType, TextBasedChannel, Role, EmbedBuilder, MessageFlags } from "discord.js"
-import { Command, Color } from "./../utils/config"
+import { Command, Color, fetchRoles, emojis } from "./../utils/config"
 import fs from "fs"
 
 export const SendMessage: Command = {
@@ -29,20 +29,8 @@ export const SendMessage: Command = {
             .setTitle("Self-role serwera GI")
 
         let description: string = "Dodaj reakcję aby otrzymać rolę:\n"
-        const roles: (Role | null)[] = [
-            await interaction.guild.roles.fetch("1489217501207199894"), // @powiadomienia-aktualnosci-gi
-            await interaction.guild.roles.fetch("1489217766463504555"), // @powiadomienia-mypolitics
-            await interaction.guild.roles.fetch("1489217787543945247"), // @powiadomienia-integracje
-            await interaction.guild.roles.fetch("1489217846415458366"), // @powiadomienia-dzialaj-org
-            await interaction.guild.roles.fetch("1489217877453045901")  // @powiadomienia-ngo-manager
-        ]
-        const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
-            "<:gi:1335711671867670589>",
-            "<:mypolitics:1489263474247860254>",
-            "<:piatka:1444813995713364208>",
-            "<:dzialajorg:1489263534570475570>",
-            "<:merged:1343666870326399057>"
-        ]
+
+        const roles: (Role | null)[] = await fetchRoles(interaction.guild)
 
         roles.forEach((value: Role | null, index: number) => {
             if (value) description += `${emojis[index]} @${value.name}\n`

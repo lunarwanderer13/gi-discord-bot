@@ -19,7 +19,7 @@ export const client: Client<boolean> = new Client({
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildExpressions,
         GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildModeration,
+        GatewayIntentBits.GuildModeration
     ],
     partials: [
         Partials.Message,
