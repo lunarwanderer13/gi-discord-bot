@@ -1,0 +1,21 @@
+{
+  "name": "discord-bot-typescript-template",
+  "version": "1.0.1",
+  "description": "A template for discord bots written in typescript",
+  "main": "./src/index.ts",
+  "repository": "https://github.com/lunarwanderer13/discord-bot-typescript-template",
+  "author": "LunarWanderer13",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.2.3",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}
