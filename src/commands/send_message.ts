@@ -40,7 +40,7 @@ export const SendMessage: Command = {
             "<:mypolitics:1489263474247860254>",
             "<:piatka:1444813995713364208>",
             "<:dzialajorg:1489263534570475570>",
-            ":five:"
+            "\:five:"
         ]
 
         roles.forEach((value: Role | null, index: number) => {
