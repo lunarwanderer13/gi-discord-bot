@@ -10,9 +10,12 @@ import interactionCreate from "./events/interactionCreate"
 
 export const client: Client<boolean> = new Client({
     intents: [
-        // Any intents you might want go here
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMessages
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildExpressions,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildModeration,
+        GatewayIntentBits.Guilds
     ]
 })
 

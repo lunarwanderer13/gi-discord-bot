@@ -1,9 +1,9 @@
 {
-  "name": "discord-bot-typescript-template",
+  "name": "gi-discord-bot",
   "version": "1.0.1",
-  "description": "A template for discord bots written in typescript",
+  "description": "A discord bot for the Generacja Innowacja discord server.",
   "main": "./src/index.ts",
-  "repository": "https://github.com/lunarwanderer13/discord-bot-typescript-template",
+  "repository": "git@github.com:lunarwanderer13/gi-discord-bot.git",
   "author": "LunarWanderer13",
   "license": "MIT",
   "private": false,
