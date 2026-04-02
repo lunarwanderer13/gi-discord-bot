@@ -1,35 +1,42 @@
-import { Client, GatewayIntentBits, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder, ChatInputCommandInteraction } from "discord.js"
+import { Client, GatewayIntentBits, Partials } from "discord.js"
+import { Command } from "./utils/config"
 import "dotenv/config"
 
 // Import commands
 import { Ping } from "./commands/ping"
+import { SendMessage } from "./commands/send_message"
 
 // Import events
 import clientReady from "./events/clientReady"
 import interactionCreate from "./events/interactionCreate"
+import messageReaction from "./events/messageReaction"
 
 export const client: Client<boolean> = new Client({
     intents: [
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.GuildExpressions,
         GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.Guilds
+        GatewayIntentBits.GuildModeration
+    ],
+    partials: [
+        Partials.Message,
+        Partials.Channel,
+        Partials.Reaction,
+        Partials.User
     ]
 })
 
-export interface Command {
-    data: SlashCommandBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder
-    execute: (interaction: ChatInputCommandInteraction) => Promise<void>
-}
-
 export const Commands: Command[] = [
-    Ping
+    Ping,
+    SendMessage
 ]
 
 clientReady(client)
 interactionCreate(client)
+messageReaction(client)
 
 // Login with the bot
 client.login(process.env.TOKEN)
