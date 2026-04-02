@@ -36,11 +36,11 @@ export const SendMessage: Command = {
             await interaction.guild.roles.fetch("1489217877453045901")  // @powiadomienia-ngo-manager
         ]
         const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
-            "<:one:>",
-            "<:two:>",
-            "<:three:>",
-            "<:four:>",
-            "<:five:>"
+            ":one:",
+            ":two:",
+            ":three:",
+            ":four:",
+            ":five:"
         ]
 
         roles.forEach((value: Role | null, index: number) => {
