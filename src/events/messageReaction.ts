@@ -1,5 +1,5 @@
-import { Client, User, PartialUser, Member, MessageReaction, PartialMessageReaction, Role } from "discord.js"
-import { fetchRoles } from "src/utils/config"
+import { Client, User, PartialUser, Member, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
+import { Color, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
 export default (client: Client): void => {
@@ -39,14 +39,29 @@ export default (client: Client): void => {
         }
         if (!role) return
 
-        const member: Member = await reaction.message.guild.members.fetch(user.id)
-        if (!member) return        
+        const member: Member = await reaction.message.guild.members.fetch({ user: user.id, force: true })
+        if (!member) return
+
+        let dm_embed: EmbedBuilder = new EmbedBuilder()
+            .setColor(Color.primary)
 
         if (member.roles.cache.has(role.id)) {
-            member.roles.remove(role.id)
+            await member.roles.remove(role.id)
+            dm_embed.setTitle(`Hej! Odznaczyłeś rolę @${role.name}!`)
         } else {
-            member.roles.add(role.id)
+            await member.roles.add(role.id)
+            dm_embed.setTitle(`Hej! Zaznaczyłeś rolę @${role.name}!`)
         }
+
+        let response: string = "Jesteś zasubskrybowany do następujących powiadomień:\n"
+
+        roles.forEach((value: Role | null, index: number) => {
+            if (value && member.roles.cache.has(value.id)) response += `${emojis[index]} @${value.name}\n`
+        })
+
+        dm_embed.setDescription(response)
+
+        user.send({ embeds: [dm_embed] })
 
         // Remove reaction right after reacting
         reaction.users.remove(member.id)
