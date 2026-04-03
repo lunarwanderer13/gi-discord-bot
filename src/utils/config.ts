@@ -31,6 +31,10 @@ export const activities: Activity[] = [
     { name: "Usuwanie bazy danych", type: ActivityType.Streaming }
 ]
 
+export function getRandomActivity(): Activity {
+    return activities[Math.floor(Math.random() * activities.length)]
+}
+
 export async function fetchRoles(guild: Guild): Promise<(Role | null)[]> {
     return [
         await guild.roles.fetch("1489217501207199894"), // @powiadomienia-aktualnosci-gi
