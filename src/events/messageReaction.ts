@@ -27,22 +27,28 @@ export default (client: Client): void => {
 
         let role: Role | null = roles[0]
         let role_lookup: boolean = false
+        let title: string = "łączyłeś powiadomienia o "
 
         switch (reaction.emoji.name) {
             case "gi":
                 role = roles[0]
+                title += "aktualnościach w GI"
                 break
             case "mypolitics":
                 role = roles[1]
+                title += "nowościach w myPolitics"
                 break
             case "piatka":
                 role = roles[2]
+                title += "integracjach w Fundacji"
                 break
             case "dzialajorg":
                 role = roles[3]
+                title += "nowościach w Działaj.org"
                 break
             case "merged":
                 role = roles[4]
+                title += "nowościach w Asystent NGO"
                 break
             default:
                 role_lookup = true
@@ -52,21 +58,39 @@ export default (client: Client): void => {
         if (!role_lookup) {
             if (member.roles.cache.has(role.id)) {
                 await member.roles.remove(role.id)
-                dm_embed.setTitle(`Hej! Odznaczyłeś rolę @${role.name}!`)
+                title = "Wy" + title
             } else {
                 await member.roles.add(role.id)
-                dm_embed.setTitle(`Hej! Zaznaczyłeś rolę @${role.name}!`)
+                title = "W" + title
             }
+            dm_embed.setTitle(title)
         } else {
             dm_embed.setTitle("Twoje ustawienia powiadomień")
         }
 
-        let response: string = "Jesteś zasubskrybowany do następujących powiadomień:\n"
+        let response: string = "Subskrybujesz następujące powiadomienia:\n"
         let equipped_roles: number = 0
 
-        roles.forEach((value: Role | null, index: number) => {
+        // To be optimized
+        roles.forEach((value: Role | null) => {
             if (value && member.roles.cache.has(value.id)) {
-                response += `${emojis[index]} @${value.name}\n`
+                switch (value.id) {
+                    case roles[0]!.id:
+                        response += `- ${emojis[0]} Aktualności w GI\n`
+                        break
+                    case roles[1]!.id:
+                        response += `- ${emojis[1]} Nowości w produkcie myPolitics\n`
+                        break
+                    case roles[2]!.id:
+                        response += `- ${emojis[2]} Integracje Fundacji\n`
+                        break
+                    case roles[3]!.id:
+                        response += `- ${emojis[3]} Nowości w produkcie Działaj.org\n`
+                        break
+                    case roles[4]!.id:
+                        response += `- ${emojis[4]} Nowości w produkcie Asystent NGO\n`
+                        break
+                }
                 equipped_roles++
             }
         })
