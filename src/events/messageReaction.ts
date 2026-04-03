@@ -65,7 +65,7 @@ export default (client: Client): void => {
         let equipped_roles: number = 0
 
         roles.forEach((value: Role | null, index: number) => {
-            if (value && value.id !== role.id && member.roles.cache.has(value.id)) {
+            if (value && member.roles.cache.has(value.id)) {
                 response += `${emojis[index]} @${value.name}\n`
                 equipped_roles++
             }
