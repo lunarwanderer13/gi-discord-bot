@@ -1,8 +1,9 @@
 import {
     SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandOptionsOnlyBuilder,
     ChatInputCommandInteraction,
+    ActivityType,
     ColorResolvable,
-    Guild, Role
+    Guild, Role,
 } from "discord.js"
 
 export interface Command {
@@ -14,6 +15,21 @@ export const Color: {primary: ColorResolvable, accent: ColorResolvable} = {
     primary: "#cc0000",
     accent: "#ffaaaa"
 }
+
+export interface Activity {
+    name: string,
+    type: ActivityType
+}
+
+export const activities: Activity[] = [
+    { name: "Losowanie ocen praktykantów", type: ActivityType.Playing },
+    { name: "Upiększanie postu na LinkedIn", type: ActivityType.Competing },
+    { name: "Sklejanie thinkpada", type: ActivityType.Watching },
+    { name: "Pomaganie w pieczeniu kremówek", type: ActivityType.Playing },
+    { name: "Pisanie \"LGTM 🚀\" w review", type: ActivityType.Playing },
+    { name: "Nastawianie zegarka", type: ActivityType.Competing },
+    { name: "Usuwanie bazy danych", type: ActivityType.Streaming }
+]
 
 export async function fetchRoles(guild: Guild): Promise<(Role | null)[]> {
     return [
