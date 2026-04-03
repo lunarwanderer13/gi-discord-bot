@@ -1,4 +1,4 @@
-import { Client, User, PartialUser, Member, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
+import { Client, User, PartialUser, GuildMember, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
 import { Color, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
@@ -39,7 +39,7 @@ export default (client: Client): void => {
         }
         if (!role) return
 
-        const member: Member = await reaction.message.guild.members.fetch({ user: user.id, force: true })
+        const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
         if (!member) return
 
         let dm_embed: EmbedBuilder = new EmbedBuilder()
