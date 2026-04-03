@@ -1,12 +1,14 @@
-import { Client, REST, Routes, User } from "discord.js"
+import { Client, ClientUser, REST, Routes } from "discord.js"
 import { Commands } from "./../index"
+import { getRandomActivity } from "./../utils/config"
 import "dotenv/config"
+import schedule from "node-schedule"
 
 export default (client: Client): void => {
     client.on("clientReady", async () => {
         if (!client.user || !client.application) return
 
-        const app: User = client.user
+        const app: ClientUser = client.user
         const restart: boolean = false
         const rest: REST = new REST().setToken(process.env.TOKEN!)
 
@@ -21,6 +23,15 @@ export default (client: Client): void => {
         }
 
         await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!), { body: Commands.map(command => command.data.toJSON()) })
+
+        app.setPresence({
+            activities: [getRandomActivity()],
+            status: "dnd",
+        })
+
+        schedule.scheduleJob("0 0 * * *", () => {
+            app.setActivity(getRandomActivity())
+        })
 
         console.log(`Logged in as ${client.user.username}`)
     })
