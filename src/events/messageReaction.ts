@@ -54,10 +54,16 @@ export default (client: Client): void => {
         }
 
         let response: string = "Jesteś zasubskrybowany do następujących powiadomień:\n"
+        let equipped_roles: number = 0
 
         roles.forEach((value: Role | null, index: number) => {
-            if (value && member.roles.cache.has(value.id)) response += `${emojis[index]} @${value.name}\n`
+            if (value && member.roles.cache.has(value.id)) {
+                response += `${emojis[index]} @${value.name}\n`
+                equipped_roles++
+            }
         })
+
+        if (equipped_roles === 0) response = `Nie masz włączonych żadnych powiadomień, możesz je dodać na <#${reaction.message.channelId}>`
 
         dm_embed.setDescription(response)
 
