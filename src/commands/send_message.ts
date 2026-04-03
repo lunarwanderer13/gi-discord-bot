@@ -44,6 +44,7 @@ export const SendMessage: Command = {
             emojis.forEach(async (value: string) => {
                 await message.react(value)
             })
+            await message.react("🔍")
 
             fs.writeFileSync("message.txt", message.id, "utf-8")
 
