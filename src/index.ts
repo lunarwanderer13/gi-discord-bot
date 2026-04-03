@@ -10,6 +10,7 @@ import { SendMessage } from "./commands/send_message"
 import clientReady from "./events/clientReady"
 import interactionCreate from "./events/interactionCreate"
 import messageReaction from "./events/messageReaction"
+import guildMemberAdd from "./events/guildMemberAdd"
 
 export const client: Client<boolean> = new Client({
     intents: [
@@ -39,6 +40,7 @@ export const Commands: Command[] = [
 clientReady(client)
 interactionCreate(client)
 messageReaction(client)
+guildMemberAdd(client)
 
 // Login with the bot
 client.login(process.env.TOKEN)

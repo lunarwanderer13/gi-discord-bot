@@ -1,9 +1,9 @@
-import { Client, User, PartialUser, Member, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
+import { Client, User, PartialUser, GuildMember, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
 import { Color, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
 export default (client: Client): void => {
-    client.on("messageReactionAdd", async (reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) => {
+    client.on("messageReactionAdd", async (reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser): Promise<void> => {
         // Check for partials and nulls
         if (reaction.partial || !reaction) reaction = await reaction.fetch()
         if (reaction.message.partial || !reaction.message) reaction.message = await reaction.message.fetch()
@@ -39,7 +39,7 @@ export default (client: Client): void => {
         }
         if (!role) return
 
-        const member: Member = await reaction.message.guild.members.fetch({ user: user.id, force: true })
+        const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
         if (!member) return
 
         let dm_embed: EmbedBuilder = new EmbedBuilder()
@@ -54,10 +54,16 @@ export default (client: Client): void => {
         }
 
         let response: string = "Jesteś zasubskrybowany do następujących powiadomień:\n"
+        let equipped_roles: number = 0
 
         roles.forEach((value: Role | null, index: number) => {
-            if (value && member.roles.cache.has(value.id)) response += `${emojis[index]} @${value.name}\n`
+            if (value && member.roles.cache.has(value.id)) {
+                response += `${emojis[index]} @${value.name}\n`
+                equipped_roles++
+            }
         })
+
+        if (equipped_roles === 0) response = `Nie masz włączonych żadnych powiadomień, możesz je dodać na <#${reaction.message.channelId}>`
 
         dm_embed.setDescription(response)
 
