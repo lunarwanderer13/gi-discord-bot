@@ -19,7 +19,15 @@ export default (client: Client): void => {
 
         const roles: (Role | null)[] = await fetchRoles(reaction.message.guild)
 
+        const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
+        if (!member) return
+
+        let dm_embed: EmbedBuilder = new EmbedBuilder()
+            .setColor(Color.primary)
+
         let role: Role | null = roles[0]
+        let role_lookup: boolean = false
+
         switch (reaction.emoji.name) {
             case "gi":
                 role = roles[0]
@@ -36,21 +44,21 @@ export default (client: Client): void => {
             case "merged":
                 role = roles[4]
                 break
+            default:
+                role_lookup = true
         }
         if (!role) return
 
-        const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
-        if (!member) return
-
-        let dm_embed: EmbedBuilder = new EmbedBuilder()
-            .setColor(Color.primary)
-
-        if (member.roles.cache.has(role.id)) {
-            await member.roles.remove(role.id)
-            dm_embed.setTitle(`Hej! Odznaczyłeś rolę @${role.name}!`)
+        if (!role_lookup) {
+            if (member.roles.cache.has(role.id)) {
+                await member.roles.remove(role.id)
+                dm_embed.setTitle(`Hej! Odznaczyłeś rolę @${role.name}!`)
+            } else {
+                await member.roles.add(role.id)
+                dm_embed.setTitle(`Hej! Zaznaczyłeś rolę @${role.name}!`)
+            }
         } else {
-            await member.roles.add(role.id)
-            dm_embed.setTitle(`Hej! Zaznaczyłeś rolę @${role.name}!`)
+            dm_embed.setTitle("Twoje ustawienia powiadomień")
         }
 
         let response: string = "Jesteś zasubskrybowany do następujących powiadomień:\n"

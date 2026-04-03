@@ -24,6 +24,9 @@ export const SendMessage: Command = {
             return
         }
 
+        // Defer reply to avoid the UnknownInteraction error by timing out
+        interaction.deferReply({ flags: MessageFlags.Ephemeral })
+
         const embed: EmbedBuilder = new EmbedBuilder()
             .setColor(Color.primary)
             .setTitle("Self-role serwera GI")
@@ -44,13 +47,14 @@ export const SendMessage: Command = {
             emojis.forEach(async (value: string) => {
                 await message.react(value)
             })
+            await message.react("🔍")
 
             fs.writeFileSync("message.txt", message.id, "utf-8")
 
-            await interaction.reply({ content: "Message sent", flags: MessageFlags.Ephemeral })
+            await interaction.editReply({ content: "Message sent" })
             return
         } catch {
-            interaction.reply({ content: "I cannot send a message in that channel", flags: MessageFlags.Ephemeral })
+            interaction.editReply({ content: "I cannot send a message in that channel" })
             return
         }
     }
