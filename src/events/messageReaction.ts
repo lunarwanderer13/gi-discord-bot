@@ -3,7 +3,7 @@ import { Color, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
 export default (client: Client): void => {
-    client.on("messageReactionAdd", async (reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser) => {
+    client.on("messageReactionAdd", async (reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser): Promise<void> => {
         // Check for partials and nulls
         if (reaction.partial || !reaction) reaction = await reaction.fetch()
         if (reaction.message.partial || !reaction.message) reaction.message = await reaction.message.fetch()
