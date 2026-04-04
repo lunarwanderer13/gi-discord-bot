@@ -1,6 +1,6 @@
 {
   "name": "gi-discord-bot",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A discord bot for the Generacja Innowacja discord server.",
   "main": "./src/index.ts",
   "repository": "git@github.com:lunarwanderer13/gi-discord-bot.git",
