@@ -5,6 +5,7 @@ import {
     ColorResolvable,             // imports for colors
     Guild, Role,                 // imports for roles
 } from "discord.js"
+import { constants } from "http2"
 
 // Command interface
 export interface Command {
@@ -59,4 +60,10 @@ export const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
     "<:dzialajorg:1489263534570475570>",
     "<:merged:1343666870326399057>"
 ]
+
+// Log function for logging both successful operations and errors
+export function log(level: string, message: string): void {
+    const timestamp: string = new Date().toISOString()
+    console.log(`[${timestamp}] [${level}]: ${message}`)
+}
 

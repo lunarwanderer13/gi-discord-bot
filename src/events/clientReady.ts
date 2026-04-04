@@ -1,6 +1,6 @@
 import { Client, ClientUser, REST, Routes } from "discord.js"
 import { Commands } from "./../index"
-import { getRandomActivity } from "./../utils/config"
+import { Activity, getRandomActivity, log } from "./../utils/config"
 import "dotenv/config"
 import schedule from "node-schedule"
 
@@ -26,19 +26,29 @@ export default (client: Client): void => {
         }
 
         // Add guild commands to the bot
-        await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!), { body: Commands.map(command => command.data.toJSON()) })
+        await rest.put(
+            Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!),
+            { body: Commands.map(command => {
+                command.data.toJSON()
+                log("LOG", `Loaded /${command.data.name}`)
+            })}
+        )
 
         // Set the presence to do-not-disturb and random activity
+        let initial_activity: Activity = getRandomActivity()
         app.setPresence({
-            activities: [getRandomActivity()],
+            activities: [initial_activity],
             status: "dnd",
         })
+        log("LOG", `Set the initial activity to ${initial_activity.name}`)
 
         // Refresh the random activity everyday
         schedule.scheduleJob("0 0 * * *", () => {
-            app.setActivity(getRandomActivity())
+            let new_activity: Activity = getRandomActivity()
+            app.setActivity(new_activity)
+            log("LOG", `Changed activity to ${new_activity.name}`)
         })
 
-        console.log(`Logged in as ${client.user.username}`)
+        log("LOG", `Logged in as ${client.user.username}`)
     })
 }
