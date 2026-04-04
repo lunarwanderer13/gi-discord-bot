@@ -2,6 +2,7 @@ import { Client, User, PartialUser, GuildMember, MessageReaction, PartialMessage
 import { Color, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
+// Event ran on every reaction add; limited to only ran when reacting to the message send by commands/send_message.ts
 export default (client: Client): void => {
     client.on("messageReactionAdd", async (reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser): Promise<void> => {
         // Check for partials and nulls
@@ -19,6 +20,7 @@ export default (client: Client): void => {
 
         const roles: (Role | null)[] = await fetchRoles(reaction.message.guild)
 
+        // Get member object
         const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
         if (!member) return
 
@@ -71,7 +73,7 @@ export default (client: Client): void => {
         let response: string = "Subskrybujesz następujące powiadomienia:\n"
         let equipped_roles: number = 0
 
-        // To be optimized
+        // To be optimized (O(n^2))
         roles.forEach((value: Role | null) => {
             if (value && member.roles.cache.has(value.id)) {
                 switch (value.id) {
@@ -99,6 +101,7 @@ export default (client: Client): void => {
 
         dm_embed.setDescription(response)
 
+        // Send the embed to user's dms
         user.send({ embeds: [dm_embed] })
 
         // Remove reaction right after reacting
