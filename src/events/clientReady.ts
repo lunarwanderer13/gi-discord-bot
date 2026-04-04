@@ -1,6 +1,6 @@
 import { Client, ClientUser, REST, Routes } from "discord.js"
 import { Commands } from "./../index"
-import { Activity, getRandomActivity, log } from "./../utils/config"
+import { Command, Activity, getRandomActivity, log } from "./../utils/config"
 import "dotenv/config"
 import schedule from "node-schedule"
 
@@ -28,9 +28,19 @@ export default (client: Client): void => {
         // Add guild commands to the bot
         await rest.put(
             Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!),
-            { body: Commands.map(command => {
-                command.data.toJSON()
+            { body: Commands.map((command: Command, index: number) => {
+                if (!command) {
+                    log("ERROR", `Command at index ${index} is undefined`)
+                    return undefined
+                }
+
+                if (!command.data) {
+                    log("ERROR", `Command at index ${index} is missing data`)
+                    return undefined
+                }
+
                 log("LOG", `Loaded /${command.data.name}`)
+                return command.data.toJSON()
             })}
         )
 
