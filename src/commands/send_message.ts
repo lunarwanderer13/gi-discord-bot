@@ -33,17 +33,35 @@ export const SendMessage: Command = {
         // Embed that will be sent in the selected channel
         const embed: EmbedBuilder = new EmbedBuilder()
             .setColor(Color.primary)
-            .setTitle("Self-role serwera GI")
-
-        let description: string = "Dodaj reakcję aby otrzymać rolę:\n"
-
-        // List all roles
-        const roles: (Role | null)[] = await fetchRoles(interaction.guild)
-        roles.forEach((value: Role | null, index: number) => {
-            if (value) description += `- ${emojis[index]} @${value.name}\n`
-        })
-
-        embed.setDescription(description)
+            .setTitle("Ustawienia powiadomień")
+            .setDescription("Domyślnie, jesteś powiadamiany oznaczeniem o każdym działaniu w GI. Aby przełączać ustawienia powiadomień, kliknij jedną z poniższych reakcji.")
+            .setFields(
+                {
+                    name: `${emojis[0]} Aktualności GI`,
+                    value: "W tej roli powiadomimy Cię o wszystkich aktualnościach związanych z GI: o tym jak gdzieś się pojawiamy, o zaplanowanych wyjazdach i wydarzeniach z życia Fundacji.",
+                    inline: false
+                },
+                {
+                    name: `${emojis[1]} Integracje Fundacji`,
+                    value: "Integracje online oraz stacjonarne odbywają się regularnie - dzięki tej grupie powiadomień nie przegapisz informacji o kolejnym wydarzeniu!",
+                    inline: false
+                },
+                {
+                    name: `${emojis[2]} Nowości w produkcie myPolitics`,
+                    value: "myPolitics to nasz największy produkt - ciągle go rozwijamy, i będziemy informować co się zmienia dla użytkowników jak i developerów.",
+                    inline: false
+                },
+                {
+                    name: `${emojis[3]} Nowości w produkcie Działaj.org`,
+                    value: "Działaj.org to nasza platforma służąca łączeniu ambitnych wolontariuszy z organizacjami przyjmującymi na praktykę czy staż. Platforma niedługo zbierze pierwsze ogłoszenia.",
+                    inline: false
+                },
+                {
+                    name: `${emojis[4]} Nowości w produkcie NGO Manager`,
+                    value: "NGO Manager to nasza aplikacja wspierająca inne NGO w sprawach administracyjnych i dokumentowych.",
+                    inline: false
+                }
+            )
 
         try {
             // Send the embed
