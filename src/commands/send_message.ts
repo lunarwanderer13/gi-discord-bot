@@ -28,7 +28,7 @@ export const SendMessage: Command = {
         }
 
         // Defer reply to avoid the UnknownInteraction error by timing out
-        interaction.deferReply({ flags: MessageFlags.Ephemeral })
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral })
 
         // Embed that will be sent in the selected channel
         const embed: EmbedBuilder = new EmbedBuilder()
