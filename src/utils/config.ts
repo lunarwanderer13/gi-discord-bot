@@ -18,6 +18,14 @@ export const Color: {primary: ColorResolvable, accent: ColorResolvable} = {
     accent: "#ffaaaa"
 }
 
+// Reaction logging interface
+export interface LogEntry {
+    id: string,
+    username: string,
+    role_id: string,
+    subscribed: boolean
+}
+
 // Activity interface
 export interface Activity {
     name: string,

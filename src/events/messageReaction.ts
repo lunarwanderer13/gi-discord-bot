@@ -1,5 +1,5 @@
 import { Client, User, PartialUser, GuildMember, MessageReaction, PartialMessageReaction, Role, EmbedBuilder } from "discord.js"
-import { Color, fetchRoles, emojis } from "src/utils/config"
+import { Color, LogEntry, fetchRoles, emojis } from "src/utils/config"
 import fs from "fs"
 
 // Event ran on every reaction add; limited to only ran when reacting to the message send by commands/send_message.ts
@@ -19,6 +19,7 @@ export default (client: Client): void => {
         if (reaction.message.id != self_role_message_id) return
 
         const roles: (Role | null)[] = await fetchRoles(reaction.message.guild)
+        const logs: LogEntry[] = JSON.parse(fs.readFileSync("logs.json", "utf-8"))
 
         // Get member object
         const member: GuildMember = await reaction.message.guild.members.fetch({ user: user.id, force: true })
@@ -58,13 +59,25 @@ export default (client: Client): void => {
         if (!role) return
 
         if (!role_lookup) {
+            const entry: LogEntry = {
+                id: user.id,
+                username: user.username,
+                role_id: role.id,
+                subscribed: true
+            }
+
             if (member.roles.cache.has(role.id)) {
                 await member.roles.remove(role.id)
                 title = "Wy" + title
+                entry.subscribed = false
             } else {
                 await member.roles.add(role.id)
                 title = "W" + title
             }
+
+            logs.push(entry)
+            fs.writeFileSync("logs.json", JSON.stringify(logs, null, 4))
+
             dm_embed.setTitle(title)
         } else {
             dm_embed.setTitle("Twoje ustawienia powiadomień")
