@@ -29,6 +29,7 @@ export const UpdateRoles: Command = {
         }
 
         const roles: Role[] = (await fetchRoles(guild)).filter((r): r is Role => r !== null)
+        const roleIds: string[] = roles.map((role: Role) => role.id)
 
         if (target) {
             let member: GuildMember = await guild.members.fetch({ user: target.id, force: true })
@@ -37,16 +38,20 @@ export const UpdateRoles: Command = {
                 return
             }
 
-            await member.roles.add(roles.map(r => r.id))
+            await member.roles.add(roleIds)
             member_count++
         } else {
             await guild.members.fetch()
 
             for (const member of guild.members.cache.values()) {
-                await member.roles.add(roles.map(r => r.id))
+                if (member.user.bot) {
+                    await member.roles.remove(roleIds)
+                    continue
+                }
+                await member.roles.add(roleIds)
                 member_count++
                 await interaction.editReply({ content: `Working... *[${member_count}/${guild.memberCount}]*` })
-                await delay(1000)
+                await delay(1000) // fix me
             }
         }
 
