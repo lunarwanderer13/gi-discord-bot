@@ -36,14 +36,14 @@ export default (client: Client): void => {
                 role = roles[0]
                 title += "aktualnościach w GI"
                 break
-            case "mypolitics":
-                role = roles[1]
-                title += "nowościach w myPolitics"
-                break
             case "piatka":
-                role = roles[2]
+                role = roles[1]
                 title += "integracjach w Fundacji"
                 break
+            case "mypolitics":
+                role = roles[2]
+                title += "nowościach w myPolitics"
+                break 
             case "dzialajorg":
                 role = roles[3]
                 title += "nowościach w Działaj.org"
@@ -81,10 +81,10 @@ export default (client: Client): void => {
                         response += `- ${emojis[0]} Aktualności w GI\n`
                         break
                     case roles[1]!.id:
-                        response += `- ${emojis[1]} Nowości w produkcie myPolitics\n`
+                        response += `- ${emojis[1]} Integracje Fundacji\n`
                         break
                     case roles[2]!.id:
-                        response += `- ${emojis[2]} Integracje Fundacji\n`
+                        response += `- ${emojis[2]} Nowości w produkcie myPolitics\n`
                         break
                     case roles[3]!.id:
                         response += `- ${emojis[3]} Nowości w produkcie Działaj.org\n`
