@@ -115,7 +115,9 @@ export default (client: Client): void => {
         dm_embed.setDescription(response)
 
         // Send the embed to user's dms
-        user.send({ embeds: [dm_embed] })
+        try {
+            user.send({ embeds: [dm_embed] })
+        } catch {}
 
         // Remove reaction right after reacting
         reaction.users.remove(member.id)
