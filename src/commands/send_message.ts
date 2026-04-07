@@ -60,6 +60,11 @@ export const SendMessage: Command = {
                     name: `${emojis[4]} Nowości w produkcie NGO Manager`,
                     value: "NGO Manager to nasza aplikacja wspierająca inne NGO w sprawach administracyjnych i dokumentowych.",
                     inline: false
+                },
+                {
+                    name: "---",
+                    value: "Jeżeli nie jesteś pewien jakie masz obecnie role - kliknij 🔍 - bot automatycznie wyśle Ci wiadomość z listą powiadomień, które subskrybujesz.",
+                    inline: false
                 }
             )
 
