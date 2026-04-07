@@ -45,6 +45,7 @@ export const UpdateRoles: Command = {
             for (const member of guild.members.cache.values()) {
                 await member.roles.add(roles.map(r => r.id))
                 member_count++
+                await interaction.editReply({ content: `Working... *[${member_count}/${guild.memberCount}]*` })
                 await delay(1000)
             }
         }
