@@ -62,7 +62,7 @@ export const SendMessage: Command = {
                     inline: false
                 },
                 {
-                    name: `${emojis[5]}Oferty pracy`,
+                    name: `${emojis[5]} Oferty pracy`,
                     value: "Człowiek szuka pracy, praca szuka człowieka!",
                     inline: false
                 },
