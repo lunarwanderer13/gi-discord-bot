@@ -53,7 +53,7 @@ export default (client: Client): void => {
                 role = roles[4]
                 title += "nowościach w Asystent NGO"
                 break
-            case "💼":
+            case "salute_meow":
                 role = roles[5]
                 title += "ofertach pracy"
             default:
