@@ -56,6 +56,7 @@ export default (client: Client): void => {
             case "salute_meow":
                 role = roles[5]
                 title += "ofertach pracy"
+                break
             default:
                 role_lookup = true
         }
