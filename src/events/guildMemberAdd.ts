@@ -9,7 +9,7 @@ export default (client: Client): void => {
         // Give all notification roles by default
         await member.roles.add(
             roles
-                .filter((role): role is Role => role !== null && role.id !== "1504039456733134960")
+                .filter((role): role is Role => role !== null)
                 .map(role => role.id)
         )
     })
