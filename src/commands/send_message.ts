@@ -65,7 +65,7 @@ export const SendMessage: Command = {
                     name: `${emojis[5]}Oferty pracy`,
                     value: "Człowiek szuka pracy, praca szuka człowieka!",
                     inline: false
-                }
+                },
                 {
                     name: "---",
                     value: "Jeżeli nie jesteś pewien jakie masz obecnie role - kliknij 🔍 - bot automatycznie wyśle Ci wiadomość z listą powiadomień, które subskrybujesz.",
