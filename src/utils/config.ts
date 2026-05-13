@@ -67,7 +67,7 @@ export const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
     "<:mypolitics:1489263474247860254>",
     "<:dzialajorg:1489263534570475570>",
     "<:merged:1343666870326399057>",
-    "💼"
+    "<:salute_meow:1444811797377978469>"
 ]
 
 // Log function for logging both successful operations and errors
