@@ -53,6 +53,10 @@ export default (client: Client): void => {
                 role = roles[4]
                 title += "nowościach w Asystent NGO"
                 break
+            case "💼":
+                role = roles[5]
+                title += "ofertach pracy"
+                break
             default:
                 role_lookup = true
         }
@@ -104,6 +108,9 @@ export default (client: Client): void => {
                         break
                     case roles[4]!.id:
                         response += `- ${emojis[4]} Nowości w produkcie Asystent NGO\n`
+                        break
+                    case roles[5]!.id:
+                        response += `- ${emojis[5]} Oferty pracy\n`
                         break
                 }
                 equipped_roles++

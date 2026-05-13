@@ -55,7 +55,8 @@ export async function fetchRoles(guild: Guild): Promise<(Role | null)[]> {
         await guild.roles.fetch("1489217787543945247"), // @powiadomienia-integracje
         await guild.roles.fetch("1489217766463504555"), // @powiadomienia-mypolitics
         await guild.roles.fetch("1489217846415458366"), // @powiadomienia-dzialaj-org
-        await guild.roles.fetch("1489217877453045901")  // @powiadomienia-ngo-manager
+        await guild.roles.fetch("1489217877453045901"), // @powiadomienia-ngo-manager
+        await guild.roles.fetch("1504039456733134960")  // @powiadomienia-praca
     ]
 }
 
@@ -65,7 +66,8 @@ export const emojis: string[] = [ // Emoji markdown syntax: <:name:id>
     "<:piatka:1444813995713364208>",
     "<:mypolitics:1489263474247860254>",
     "<:dzialajorg:1489263534570475570>",
-    "<:merged:1343666870326399057>"
+    "<:merged:1343666870326399057>",
+    "💼"
 ]
 
 // Log function for logging both successful operations and errors

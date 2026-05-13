@@ -62,6 +62,11 @@ export const SendMessage: Command = {
                     inline: false
                 },
                 {
+                    name: `${emojis[5]} Oferty pracy`,
+                    value: "Powiadomienia o sprawdzonych ofertach pracy: zawsze z konkretnym opisem, wymaganiami, widoczną stawką, konkretne ogłoszenia dla konkretnych osób.",
+                    inline: false
+                },
+                {
                     name: "---",
                     value: "Jeżeli nie jesteś pewien jakie masz obecnie role - kliknij 🔍 - bot automatycznie wyśle Ci wiadomość z listą powiadomień, które subskrybujesz.",
                     inline: false
