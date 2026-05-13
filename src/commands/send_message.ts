@@ -63,7 +63,7 @@ export const SendMessage: Command = {
                 },
                 {
                     name: `${emojis[5]} Oferty pracy`,
-                    value: "Człowiek szuka pracy, praca szuka człowieka!",
+                    value: "Powiadomienia o sprawdzonych ofertach pracy: zawsze z konkretnym opisem, wymaganiami, widoczną stawką, konkretne ogłoszenia dla konkretnych osób.",
                     inline: false
                 },
                 {
