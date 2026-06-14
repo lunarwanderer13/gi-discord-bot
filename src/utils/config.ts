@@ -40,7 +40,8 @@ export const activities: Activity[] = [
     { name: "Pomaganie w pieczeniu kremówek", type: ActivityType.Playing },
     { name: "Pisanie \"LGTM 🚀\" w review", type: ActivityType.Playing },
     { name: "Nastawianie zegarka", type: ActivityType.Competing },
-    { name: "Usuwanie bazy danych", type: ActivityType.Streaming }
+    { name: "Usuwanie bazy danych", type: ActivityType.Streaming },
+    { name: "Suszenie fortepianu", type: ActivityType.Playing }
 ]
 
 // Get random activity from the array above
